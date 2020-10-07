@@ -1,0 +1,31 @@
+sudo: required
+
+services:
+    - docker
+
+before_install:
+    - docker build -t nileshb83/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true nileshb83/react-test npm test -- --coverage
+
+after_success:
+    - docker build -t nileshb83/multi-client ./client
+    - docker build -t nileshb83/multi-nginx ./nginx
+    - docker build -t nileshb83/multi-server ./server
+    - docker build -t nileshb83/multi-worker ./worker
+
+# Login to Docker
+
+- echo "$DOCKER_PASSWORD" | docker login -u"$DOCKER_ID" --password-stdin
+
+# Push the images to doocker hub
+
+- docker push nileshb83/multi-client
+- docker push nileshb83/multi-nginx
+- docker push nileshb83/multi-server
+- docker push nileshb83/multi-worker
+
+
+
+    
