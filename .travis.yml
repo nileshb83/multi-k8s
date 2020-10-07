@@ -15,7 +15,7 @@ after_success:
     - docker build -t nileshb83/multi-server ./server
     - docker build -t nileshb83/multi-worker ./worker
 
-# Login to Docker
+# Login to Docker using docker id
 
 - echo "$DOCKER_PASSWORD" | docker login -u"$DOCKER_ID" --password-stdin
 
