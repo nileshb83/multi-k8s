@@ -24,10 +24,11 @@ after_success:
     - docker push nileshb83/multi-worker
 
 deploy:
+    edge: true
     provider: elasticbeanstalk
     region: "eu-west-2"
-    app: "multi-docker"
-    env : "MultiDocker-env"
+    app: "multi-docker_1"
+    env : "MultiDocker1-env"
     bucket_name: "elasticbeanstalk-eu-west-2-679645747196"
     bucket_path: "docker-multi"
     on:
